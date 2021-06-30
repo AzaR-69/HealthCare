@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="card border-primary mb-3 shadow rounded text-center" style="width: 25rem;">
+            <h3 class="card-header text-primary text-center fw-bold">Your Appointment</h3>
+            <div class="card-body" *ngIf="isUser; else DoctorContent">
+                <div *ngIf="isEmpty">
+                    <div class="alert alert-danger">
+                        You have'nt made any appointments yet
+                    </div>
+                    <a class="btn btn-outline-danger btn-sm m-3" [routerLink]="['/service']" style="width: 10rem;"><span
+                            class="material-icons-outlined" style="float: left;">arrow_back</span>Go back</a>
+                </div>
+
+                <div class="image" *ngIf="!request.status && !request.rejected && !isEmpty">
+                    <a class="btn" href="service" style="border-radius: 60px;color: #455a64;"><span
+                            class="material-icons-outlined pending">pending_actions</span></a>
+                    <p class="fs-5 mt-3">Your request is still in progress. Please check again later</p>
+                    <a class="btn btn-outline-danger btn-sm m-3" [routerLink]="['/service']" style="width: 10rem;"><span
+                            class="material-icons-outlined" style="float: left;">arrow_back</span>Go back</a>
+                </div>
+                <div class="response" *ngIf="request.status && !request.rejected">
+                    <a class="btn btn-outline-success" href="service" style="border-radius: 60px"><span
+                            class="material-icons-outlined verified">verified</span></a>
+                    <div class="form-floating">
+                        <textarea class="form-control" name="response" id="response" style="height: 75px"
+                            [(ngModel)]="request.response" disabled readonly>
+                        </textarea>
+                        <label for="response">Doctor's Response</label>
+                    </div>
+                    <a class="btn btn-outline-danger btn-sm m-3" [routerLink]="['/service']" style="width: 10rem;"><span
+                            class="material-icons-outlined" style="float: left;">arrow_back</span>Go back</a>
+                </div>
+                <div class="response-rejected" *ngIf="!request.status && request.rejected && !isEmpty">
+                    <a class="btn btn-outline-danger" href="service" style="border-radius: 60px"><span
+                            class="material-icons-outlined oops">sentiment_dissatisfied</span></a>
+                    <p class="fs-5 mt-3">Oops</p>
+                    <div class="form-floating">
+                        <textarea class="form-control" name="response" id="response" style="height: 75px"
+                            [(ngModel)]="request.response" disabled readonly></textarea>
+                        <label for="response">Doctor's Response</label>
+                    </div>
+                    <button type="submit" style="width: 10rem;" class="btn btn-outline-danger"
+                        (click)="deleteRequest()"><span class="material-icons-outlined"
+                            style="float: left;">delete</span>Delete request</button>
+                </div>
+            </div>
+            <ng-template #DoctorContent>
+                <div class="card-body" *ngIf="!request.status && !request.rejected && !isEmpty; else accepted">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="name" [(ngModel)]="request.patientName" disabled
+                            readonly>
+                        <label for="name">Patient Name</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" name="problem" id="problem" style="height: 75px"
+                            [(ngModel)]="request.problem" disabled readonly></textarea>
+                        <label for="problem">Patient Problem</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="appdate" [(ngModel)]="request.date" disabled
+                            readonly>
+                        <label for="appdate">Requested Appointment Date</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" name="response" id="response" style="height: 75px"
+                            [(ngModel)]="request.response" required></textarea>
+                        <label for="response">Your Response</label>
+                    </div>
+                    <div class="response-buttons">
+                        <button type="submit" style="float:left;width: 10rem;" class="btn btn-outline-success"
+                            (click)="updateRequest(true)">Accept</button>
+                        <button type="button" class="btn btn-outline-danger" style="float: right;width: 10rem;"
+                            (click)="updateRequest(false)">Reject</button>
+                    </div>
+                </div>
+                <ng-template #accepted>
+                    <div>
+                        <div class="alert alert-danger">
+                            No requests
+                        </div>
+                        <a class="btn btn-outline-danger btn-sm m-3" [routerLink]="['/service']"
+                            style="width: 10rem;"><span class="material-icons-outlined"
+                                style="float: left;">arrow_back</span>Go back</a>
+                    </div>
+                </ng-template>
+            </ng-template>
+        </div>
+    </div>
+</div>

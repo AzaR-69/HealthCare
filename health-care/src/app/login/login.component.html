@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="d-flex justify-content-center"> 
+    <div class="card bg-light border-primary mb-3 shadow rounded"  style="width: 25rem;">
+        <img src="https://www.ns-healthcare.com/wp-content/uploads/sites/13/2019/10/Healthcare-Tech.jpg" style="height: 15rem" class="card-img-top banner" alt="blood bank">
+        <div class="card-body">
+            <p *ngIf="error" class="text-danger text-center fw-bold">
+                {{ error }}
+            </p>
+         <form #loginForm="ngForm" (ngSubmit)="validate()" ngNativeValidate>
+            <div class="form-floating">
+                <input type="text" class="form-control" name="username" placeholder="username" [(ngModel)]="user.username" required #username="ngModel">
+                <label for="username">Username</label>
+                <small class="text-danger" [class.d-none]="username.valid || username.untouched">Username is required</small>
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="user.password" required #password="ngModel">
+                <label for="password">Password</label>
+                <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>
+              </div>
+              <button class="btn btn-primary col-11 ms-3" type="submit">Submit</button>
+        </form><br>
+        <div class="text-center">
+            <p>New user? &nbsp;<a href="register">Sign up!</a></p> 
+        </div>
+        </div>   
+      </div>
+    </div>
+</div> 
+<router-outlet></router-outlet>

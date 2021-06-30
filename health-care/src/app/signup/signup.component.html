@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="d-flex justify-content-center"> 
+    <div class="card bg-light border-primary shadow rounded"  style="width: 25rem;">
+        <h3 class="card-header text-primary" style="text-align: center;font-weight: bold;">SignUp Page</h3>
+        <div class="card-body">
+            <small class="text-danger text-center fw-bold">{{msg}}</small>
+         <form #registerForm="ngForm" (ngSubmit)="register()" ngNativeValidate *ngIf="!isSuccess">
+            <div class="form-floating">
+                <input type="text" class="form-control" name="anumber" id="anumber" [(ngModel)]="user.id" placeholder="Aadhar number" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}" maxlength="14" 
+                oninvalid="this.setCustomValidity('Please enter as xxxx-xxxx-xxxx')"
+                oninput="this.setCustomValidity('')" required>
+                <label for="anumber">Aadhar Number</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" name="name" [(ngModel)]="user.name" placeholder="Name" required>
+                <label for="name">Name</label>
+            </div>
+            <div class="form-floating">
+                <input type="email" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Email" required>
+                <label for="email">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" name="mobile" [(ngModel)]="user.mobileNumber" placeholder="Mobile number" minlength=10 maxlength=10 required>
+                <label for="mobile">Mobile Number</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" name="username" [(ngModel)]="user.username" placeholder="Username" minlength=6 maxlength=20 required>
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Password" minlength=8 required>
+                <label for="password">Password</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" name="password2" [(ngModel)]="password2" placeholder="Confirm Password" required>
+                <label for="password2">Confirm Password</label>
+            </div>
+            <button type="submit" class="btn btn-primary col-11 ms-3">Register</button>
+             
+        </form>
+        <div class="alert alert-success" *ngIf="isSuccess">
+            Registered Successfully
+        </div>
+        <br>
+        <p class="text-center" *ngIf="!isSuccess">Already have an account? &nbsp;<a href="login" >Click here!</a></p>
+        </div>
+      </div>
+    </div>
+</div>  
+
+<router-outlet></router-outlet>

@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="card bg-light button-card border border-primary shadow bg-white rounded buttons"
+            style="width: 25rem;">
+            <h3 class="card-header text-primary text-center fw-bold">Patient Report</h3>
+            <div class="card-body">
+                <div class="prescription-content">
+                    <div class="alert alert-success text-center" *ngIf="isSuccess && !isUser">
+                        Generated Successfully
+                    </div>
+                    <div *ngIf="emptyObj && request.status; else noReport" #patientReport id="patientReport">
+                        <form #ReportForm="ngForm" (ngSubmit)="generateReport()">
+                            <div class="form-group">
+                                <label for="docID">Doctor ID</label>
+                                <input type="text" class="form-control" name="docID" [(ngModel)]="request.doctorId" disabled readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="patientId">Patient ID</label>
+                                <input type="text" class="form-control" name="patientId" [(ngModel)]="request.patientId" disabled readonly
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="patientName">Patient Name</label>
+                                <input type="text" class="form-control" name="patientName" [(ngModel)]="request.patientName" disabled readonly
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="appDate">Appointment Date</label>
+                                <input type="text" class="form-control" name="appDate"
+                                [(ngModel)]="request.date" disabled readonly>
+                            </div>
+                            <div class="mb-3" style="margin: 15px">
+                                <label for="patientProblem" class="form-label">Patient Problem</label>
+                                <textarea class="form-control" name="patientProblem" [(ngModel)]="request.problem" disabled readonly rows="2"></textarea>
+                            </div>
+                            <div class="mb-3" style="margin: 15px">
+                                <label for="prescription" class="form-label">Prescription</label>
+                                <textarea class="form-control" name="prescription" rows="2" [(ngModel)]="request.prescription" [readonly]="isUser"></textarea>
+                            </div>
+                            <div class="alert alert-danger text-center" *ngIf="emptyDesc && isUser">
+                                Your report is still pending
+                            </div>
+                            <button type="submit" class="btn btn-primary gr" *ngIf="isDoctor; else userButton" [disabled]="isSuccess">Generate Report</button>
+                            <ng-template #userButton>
+                                <button class="btn btn-outline-success mt-2" style="width: 10rem;" (click)="exportAsPDF(patientReport);" [disabled]="emptyDesc"><span class="material-icons-outlined" style="float: left;">
+                                    file_download
+                                    </span>Download report as PDF</button>
+                                <button class="btn btn-outline-danger ms-3" (click)="deleteReport()" style="width: 10rem;" [disabled]="emptyDesc"><span class="material-icons-outlined" style="float:left">
+                                    delete
+                                    </span>Click after download</button>
+                            </ng-template>
+                        </form>
+                    </div>
+                    
+                    <ng-template #noReport>
+                        <div *ngIf="!isSuccess" style="text-align: center;">
+                            <div class="alert alert-danger text-center">
+                                No reports
+                            </div>
+                            <a class="btn btn-outline-danger btn-sm m-3" [routerLink]="['/service']"
+                                style="width: 10rem;"><span class="material-icons-outlined"style="float: left;">arrow_back</span>Go back</a>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="container">
+  <p class="fs-2 text-center fw-bold" style=" color: #3949ab;"><u>Our Services</u></p>
+  <div class="row" *ngIf="isUser">
+    <div class=" col-lg-3 col-sm-12">
+      <div class="card shadow bg-body rounded " style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center fw-bold">Edit your profile</h5>
+          <hr>
+          <a [routerLink]="['/profile']"><span class="material-icons-outlined"> account_circle</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-12">
+      <div class="card shadow bg-body rounded" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center fw-bold">Book an appointment</h5>
+          <hr>
+          <a [routerLink]="['/doctors']"><span class="material-icons-outlined">event_available</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-12 ">
+      <div class="card shadow bg-body rounded" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center fw-bold">Your appointment</h5>
+          <hr>
+          <a [routerLink]="['/appointment']"><span class="material-icons-outlined">class</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-12 ">
+      <div class="card shadow bg-body rounded" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center fw-bold">Check Report</h5>
+          <hr>
+          <a [routerLink]="['/prescription']"><span class="material-icons-outlined">medication</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="isDoctor">
+    <div class=" col-lg-4 col-sm-12">
+      <div class="card shadow bg-body rounded " style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center fw-bold">Edit your profile</h5>
+          <hr>
+          <a [routerLink]="['/profile']"><span class="material-icons-outlined">
+              admin_panel_settings
+            </span></a>
+        </div>
+      </div>
+    </div>
+    <div class=" col-lg-4 col-sm-12">
+      <div class="card shadow bg-body rounded " style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center fw-bold">Appointment Requests</h5>
+          <hr>
+          <a [routerLink]="['/appointment']"><span class="material-icons-outlined">health_and_safety</span></a>
+        </div>
+      </div>
+    </div>
+    <div class=" col-lg-4 col-sm-12">
+      <div class="card shadow bg-body rounded " style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center fw-bold">Patient Report</h5>
+          <hr>
+          <a [routerLink]="['/prescription']"><span class="material-icons-outlined">
+              medical_services
+            </span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isAdmin">
+    <div class="col-sm-12">
+      <div class="card shadow bg-body rounded admin-card" style="width: 18rem;margin-left: 40%;">
+        <div class="card-body">
+          <h5 class="card-title text-center fw-bold">Manage Doctors</h5>
+          <hr>
+          <a [routerLink]="['/manage']"><span class="material-icons-outlined">
+             manage_accounts
+            </span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

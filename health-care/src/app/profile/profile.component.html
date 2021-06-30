@@ -1,0 +1,33 @@
+    <div class="card border-primary shadow bg-white rounded mb-3 container" style="max-height:50rem;width: 25rem;">
+        <h5 class="card-header fw-bold" style="color: #3f51b5;">Edit User Profile</h5>
+        <div class="card-body">
+            <div *ngIf="!editable">
+                <p class="card-text"><strong>Name: </strong> <span>{{user.name}}</span></p>
+                <p class="card-text"><strong>Username: </strong> <span>{{user.username}}</span></p>
+                <p class="card-text"><strong>Email: </strong> <span>{{user.email}}</span></p>
+                <p class="card-text"><strong>Mobile Number: </strong> <span>{{user.mobileNumber}}</span></p> 
+                <button type="button" class="btn btn-outline-success ms-2" (click)="editable=!editable">Edit your profile</button>
+                <a class="btn btn-outline-danger btn-sm m-3" [routerLink]="['/service']" style="width: 10rem;"><span class="material-icons-outlined" style="float: left;">arrow_back</span>Go back</a>
+            </div>
+        <form #editForm="ngForm" *ngIf="editable" ngNativeValidate>
+            <div class="form-floating">
+                <input type="text" class="form-control" name="name" placeholder="name" [(ngModel)]="user.name" required >
+                <label for="name">Name</label>   
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" name="username" placeholder="username" [(ngModel)]="user.username" required >
+                <label for="username">Username</label>   
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" name="email" placeholder="email" [(ngModel)]="user.email" required >
+                <label for="email">Email</label>   
+            </div> <div class="form-floating">
+                <input type="text" class="form-control" name="mobile" placeholder="mobile" [(ngModel)]="user.mobileNumber" maxlength="10" required >
+                <label for="mobile">Mobile</label>   
+            </div>
+        <button type="submit" style="width: 10rem;" class="btn btn-outline-success" (click)="updateUser()">Submit</button>
+        <button type="button" class="btn btn-outline-danger" style="float: right;width: 10rem;" (click)="editable=!editable">Cancel</button>
+        </form>  
+        </div>
+    </div> 
+        

@@ -1,0 +1,22 @@
+.container{
+    border-radius: 5px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.form-floating{
+    margin: 10px;
+    margin-bottom: 20px;
+}
+p{
+    font-size: large;
+    padding: 15px;
+}
+strong{
+    color: #4c5ecf;
+}
+label{
+    font-weight: bold;
+    color: #4c5ecf;
+}
