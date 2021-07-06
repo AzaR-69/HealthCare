@@ -24,6 +24,7 @@ public class User {
 	@Size(min=6,max = 20)
 	private String password;
 	private String mobileNumber;
+	private boolean availability;
 	private String role;
 	public String getRole() {
 		return role;
@@ -67,5 +68,13 @@ public class User {
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
+	public boolean isAvailability() {
+		return availability;
+	}
+	public void setAvailability(boolean availability) {
+		this.availability = availability;
+	}
+	
+	
 	
 }

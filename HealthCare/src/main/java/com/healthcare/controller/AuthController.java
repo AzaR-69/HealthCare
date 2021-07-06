@@ -69,6 +69,7 @@ public class AuthController {
 		if (userRepository.existsByEmail(user.getEmail())) {
 			throw new Exception("Error: email is already taken");
 		}
+		user.setAvailability(true);
 		user.setPassword(encoder.encode(user.getPassword()));
 		user.setRole("ROLE_USER");
 		userRepository.save(user);
@@ -76,7 +77,7 @@ public class AuthController {
 
 	@GetMapping(value = "/getUser/{username}")
 	public User findUser(@PathVariable String username) throws Exception {
-		return userRepository.findByUsername(username).orElseThrow(() -> new Exception("User not found"));
+		return userRepository.findByUsername(username).orElseThrow(()->new Exception("User not found"));
 	}
 	
 	@PatchMapping(value="/update")
@@ -108,6 +109,13 @@ public class AuthController {
 		}
 		user.setPassword(encoder.encode(user.getPassword()));
 		user.setRole("ROLE_ADMIN");
+		userRepository.save(user);
+	}
+	
+	@PatchMapping("/updateAvailability/{username}/{availability}")
+	public void updateAvailability(@PathVariable String username,@PathVariable boolean availability) throws Exception {
+		User user=userRepository.findByUsername(username).orElseThrow(()->new Exception("Not found"));
+		user.setAvailability(availability);
 		userRepository.save(user);
 	}
 }

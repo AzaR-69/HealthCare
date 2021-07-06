@@ -3,6 +3,7 @@ package com.healthcare.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.healthcare.model.Doctor;
+import com.healthcare.model.User;
 import com.healthcare.repository.DoctorRepository;
+import com.healthcare.repository.UserRepository;
 
 @RestController
 @CrossOrigin
@@ -23,6 +26,12 @@ public class DocContoller {
 	@Autowired
 	DoctorRepository doctorRepository;
 
+	@Autowired
+	PasswordEncoder encoder;
+	
+	@Autowired
+	UserRepository userRepository;
+	
 	@GetMapping("")
 	public List<Doctor> getDoctors(){
 		return doctorRepository.findAll();
@@ -30,6 +39,17 @@ public class DocContoller {
 	
 	@PostMapping("/add")
 	public void addDoctors(@RequestBody Doctor doctor) {
+		User user=new User();
+		user.setName(doctor.getName());
+		user.setId(doctor.getId());
+		user.setEmail("Doc"+doctor.getName().replace(" ", "")+"@hc.com");
+		user.setRole("ROLE_DOCTOR");
+		user.setAvailability(true);
+		String name=doctor.getName().replace(" ", "").toLowerCase();
+		user.setUsername("doctor_"+name);
+		user.setPassword(encoder.encode("doc_"+name));
+		userRepository.save(user);
+		doctor.setAvailability(true);
 		doctorRepository.save(doctor);
 	}
 	

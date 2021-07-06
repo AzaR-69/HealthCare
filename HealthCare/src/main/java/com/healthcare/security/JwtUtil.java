@@ -17,10 +17,10 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtUtil {
-	@Value("${bb.app.jwtSecret}")
+	@Value("${healthcare.app.jwtSecret}")
 	private String jwtSecret;
 
-	@Value("${bb.app.jwtExpirationMs}")
+	@Value("${healthcare.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
 	
 	public String generateJwtToken(Authentication authentication) {
@@ -28,6 +28,7 @@ public class JwtUtil {
 		MyUserDetails userPrincipal = (MyUserDetails) authentication.getPrincipal();
 
 		return Jwts.builder()
+				.setSubject((userPrincipal.getUsername()))
 				.claim("name", userPrincipal.getName())
 				.claim("username",userPrincipal.getUsername())
 				.claim("userId", userPrincipal.getId())

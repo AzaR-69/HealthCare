@@ -13,6 +13,7 @@ public class RequestModel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long requestId;
 	private String doctorId;
+	private String doctorName;
 	private String patientName;
 	private String patientId;
 	private String problem;
@@ -89,6 +90,12 @@ public class RequestModel {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+	public String getDoctorName() {
+		return doctorName;
+	}
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
 	}
 	
 }
