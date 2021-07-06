@@ -9,7 +9,7 @@
                         Generated Successfully
                     </div>
                     <div *ngIf="emptyObj && request.status; else noReport" #patientReport id="patientReport">
-                        <form #ReportForm="ngForm" (ngSubmit)="generateReport()">
+                        <form #ReportForm="ngForm">
                             <div class="form-group">
                                 <label for="docID">Doctor ID</label>
                                 <input type="text" class="form-control" name="docID" [(ngModel)]="request.doctorId" disabled readonly>
@@ -45,9 +45,6 @@
                                 <button class="btn btn-outline-success mt-2" style="width: 10rem;" (click)="exportAsPDF(patientReport);" [disabled]="emptyDesc"><span class="material-icons-outlined" style="float: left;">
                                     file_download
                                     </span>Download report as PDF</button>
-                                <button class="btn btn-outline-danger ms-3" (click)="deleteReport()" style="width: 10rem;" [disabled]="emptyDesc"><span class="material-icons-outlined" style="float:left">
-                                    delete
-                                    </span>Click after download</button>
                             </ng-template>
                         </form>
                     </div>

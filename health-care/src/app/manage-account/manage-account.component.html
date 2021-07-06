@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-center container" *ngIf="!editable">
     <div class="card my-5 w-50 shadow bg-white rounded donor">
-        <h3 class="card-header text-primary fw-bold">Doctors:</h3>
+        <h3 class="card-header text-primary fw-bold">Doctors: <span style="float: right;"><button class="btn btn-outline-primary btn-sm" (click)="addDoc=!addDoc">Add Doctor</button></span></h3>
         <div class="card-body">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" *ngIf="!addDoc">
                 <thead class="table-primary">
                     <tr>
                         <th scope="col">Doctor ID</th>
@@ -38,12 +38,29 @@
                     </tr>
                 </tbody>
             </table>
+            <form #addForm="ngForm" (ngSubmit)="addDoctor()" ngNativeValidate [hidden]="!addDoc">
+                <div class="form-group">
+                    <label for="docId" class="text-primary mb-2">Doctor ID</label>
+                    <input type="text" class="form-control" name="docId" [(ngModel)]="doctor.id" required>
+                </div>
+                <div class="form-group">
+                    <label for="docName" class="text-primary mb-2">Doctor Name</label>
+                    <input type="text" class="form-control" name="docName" [(ngModel)]="doctor.name" required>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="docSpeciality" class="text-primary mb-2">Speciality</label>
+                    <input type="text" class="form-control" name="docSpeciality" [(ngModel)]="doctor.speciality" required>
+                </div>
+                <button type="submit" style="width: 10rem;" class="btn btn-outline-success mt-2 ms-2">Submit</button>
+                <button type="button" (click)="addDoc=!addDoc" style="float: right;width: 10rem;"
+                    class="btn btn-outline-danger me-2">Cancel</button>
+            </form>
         </div>
     </div>
 </div>
 <div class="edit-content" *ngIf="editable">
     <div class="d-flex justify-content-center">
-        <div class="card border-primary bg-light mb-3" style="width: 25rem;">
+        <div class="card shadow rounded bg-light mb-3" style="width: 25rem;">
             <h5 class="card-header text-primary" style="font-weight: bold;">
                 Edit Doctor Profile
             </h5>

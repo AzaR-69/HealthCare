@@ -1,5 +1,5 @@
 .container{
-    margin-top: 50px;
+    margin-top: 70px;
     position:absolute;
     left:15%;
 }
@@ -12,7 +12,7 @@ label{
     font-weight: bold;
     color: #6174f0;
 }
-@media screen and (max-width:670px) {
+@media screen and (max-width:750px) {
     .container{
         position: none;
         left:0%;

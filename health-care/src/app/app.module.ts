@@ -7,7 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ServiceComponent } from './service/service.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -20,6 +20,9 @@ import { PrescriptionComponent } from './prescription/prescription.component';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
+import { DoctorAppointmentPanelComponent } from './doctor-appointment-panel/doctor-appointment-panel.component';
+import { DoctorService } from 'services/doctor.service';
+import { RequestService } from 'services/request.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { ManageAccountComponent } from './manage-account/manage-account.componen
     DoctorsComponent,
     AppointmentComponent,
     PrescriptionComponent,
-    ManageAccountComponent
+    ManageAccountComponent,
+    DoctorAppointmentPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,7 @@ import { ManageAccountComponent } from './manage-account/manage-account.componen
     HttpClientModule,
     FormsModule
   ],
-  providers: [AuthService,HttpInterceptorService,TokenServiceService],
+  providers: [AuthService,TokenServiceService,DoctorService,RequestService,HttpInterceptorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

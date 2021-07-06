@@ -17,11 +17,15 @@ export class RequestService {
   getRequest(id:string):Observable<any>{
     return this.http.get<any>(`http://localhost:8080/requests/getRequest/${id}`)
   }
-  update(request:RequestModel){
-    return this.http.patch<RequestModel>("http://localhost:8080/requests/updateRequest",request)
+
+  getRequests(id:string):Observable<any>{
+    return this.http.get<RequestModel[]>(`http://localhost:8080/requests/getRequests/${id}`)
+  }
+  update(request:RequestModel,status:boolean){
+    return this.http.patch<RequestModel>(`http://localhost:8080/requests/updateRequest/${status}`,request)
   }
 
-  deleteRequest(id:string){
-    return this.http.delete<any>(`http://localhost:8080/requests/deleteRequest/${id}`)
+  deleteRequest(id:string,date:string){
+    return this.http.delete<any>(`http://localhost:8080/requests/deleteRequest/${id}/${date}`)
   }
 }

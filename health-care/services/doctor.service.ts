@@ -25,4 +25,7 @@ export class DoctorService {
   deleteByDoctorId(doctorId:string){
     return this.http.delete(`http://localhost:8080/doctors/deleteDoctor/${doctorId}`)
   }
+  addDoctor(doctor:Doctor){
+    return this.http.post<any>("http://localhost:8080/doctors/add",doctor);
+  }
 }

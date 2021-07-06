@@ -2,29 +2,33 @@
     <div class="card my-5 w-50 shadow bg-white rounded donor">
       <h3 class="card-header text-primary fw-bold">Available Doctors:</h3>
         <div class="card-body"> 
-          <div class="alert alert-danger text-center" *ngIf="existing">
-            Only one appointment per slot! Your request is still in process
+          <div class="alert alert-danger text-center" *ngIf="!availability">
+            Your request is in progress. We will get back to you shortly
           </div>
-          <table class="table table-bordered table-striped" *ngIf="!form && !existing; else Form">
-            <thead class="table-primary">
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Speciality</th>
-                <th scope="col">Book</th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let doctor of doctors">
-              <tr *ngIf="doctor.availability">
-                <td>{{doctor.name}}</td>
-                <td >{{doctor.speciality}}</td>
-                <td><button type="button" class="btn btn-outline-primary btn-sm ms-2" style="border-radius: 20px;" (click)="requestForm(doctor.id)"><i class="bi bi-bookmark-heart-fill"></i></button></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped" *ngIf="!form && availability; else Form">
+              <thead class="table-primary">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Speciality</th>
+                  <th scope="col">Book</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let doctor of doctors">
+                <tr *ngIf="doctor.availability">
+                  <td>{{doctor.name}}</td>
+                  <td >{{doctor.speciality}}</td>
+                  <td><button type="button" class="btn btn-outline-primary btn-sm ms-2" style="border-radius: 20px;" (click)="requestForm(doctor.id,doctor.name)"><i class="bi bi-bookmark-heart-fill"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <ng-template #Form>
-            <form #RequestForm="ngForm" (ngSubmit)="addRequest()" ngNativeValidate *ngIf="!isSuccess && !existing">
+            <form #RequestForm="ngForm" (ngSubmit)="addRequest()" ngNativeValidate *ngIf="!isSuccess && availability">
                 <label for="doctorId">Doctor Id</label>
                 <input class="form-control" type="text" name="doctorId" [(ngModel)]="request.doctorId" disabled readonly>
+                <label for="doctorName">Doctor Name</label>
+                <input class="form-control" type="text" name="doctorName" [(ngModel)]="request.doctorName" disabled readonly>
                 <label for="patientId">Patient Id</label>
                 <input class="form-control" type="text" name="patientId" [(ngModel)]="request.patientId" disabled readonly>
                 <label for="patientName">Patient Name</label>
@@ -39,9 +43,6 @@
                 </div>
                 <button class="btn btn-primary col-11 ms-3" type="submit">Submit</button>
           </form>
-            <div class="alert alert-success" *ngIf="isSuccess">
-              We received your request. We will get back to you shortly
-            </div>
           </ng-template>
         </div>
         <a class="btn btn-outline-danger btn-sm m-3"  [routerLink]="['/service']" style="width: 10rem;"><span class="material-icons-outlined" style="float: left;">arrow_back</span>Go back</a>

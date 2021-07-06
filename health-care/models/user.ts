@@ -5,4 +5,5 @@ export class User {
     mobileNumber!:string;
     username!:string;
     password!:string;
+    availability!:boolean
 }

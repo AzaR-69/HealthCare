@@ -15,6 +15,7 @@ export class ManageAccountComponent implements OnInit {
   doctors:Doctor[]=[]
   doctor:Doctor=new Doctor
   editable=false
+  addDoc=false
   constructor(private docService:DoctorService,private router:Router,private token:TokenServiceService,private auth:AuthService) { 
    
   }
@@ -37,7 +38,11 @@ export class ManageAccountComponent implements OnInit {
       data=>this.doctors=data,error=>console.log(error)
     )
   }
-
+  addDoctor(){
+    this.docService.addDoctor(this.doctor).subscribe(
+      data=>{console.log("Success"),this.addDoc=!this.addDoc,this.ngOnInit()},error=>console.log(error)
+    )
+  }
   editDoctor(id:string){
     this.editable=!this.editable
     this.docService.getDoctorById(id).subscribe(

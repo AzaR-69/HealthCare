@@ -47,20 +47,6 @@ export class PrescriptionComponent implements OnInit {
     )
   }
 
-  generateReport(){
-    this.request.visited=true
-    this.requestService.update(this.request).subscribe(
-      data=>{this.isSuccess=!this.isSuccess,this.router.navigate(['/service'])},error=>console.log(error)
-    )
-  }
-
-
-  deleteReport(){
-    this.requestService.deleteRequest(this.userId).subscribe(
-      data=>{console.log("deleted"),this.router.navigate(['/service'])},error=>console.log(error)
-    )
-  }
-
   exportAsPDF(data:any) {
     html2canvas(data, { allowTaint: true }).then(canvas => {
      let HTML_Width = canvas.width;

@@ -1,0 +1,102 @@
+<div class="d-flex justify-content-center container">
+    <div class="card my-5 w-75 shadow bg-white rounded donor">
+        <h3 class="card-header text-primary fw-bold">Your Appointments</h3>
+        <div class="card-body">
+            <table class="table table-bordered table-striped" *ngIf="requests.length && !respond;else noRequests">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Problem</th>
+                        <th scope="col">Appointment date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Respond</th>
+                        <th scope="col">Report</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let request of requests">
+                    <tr>
+                        <td>{{request.patientName}}</td>
+                        <td>{{request.problem}}</td>
+                        <td>{{request.date}}</td>
+                        <td ><button class="btn btn-outline-success btn-sm ms-2" *ngIf="request.status">Accepted</button>
+                            <button class="btn btn-outline-secondary btn-sm ms-2" *ngIf="!request.status && !request.rejected">Pending</button>   
+                            <button class="btn btn-outline-danger btn-sm ms-2" *ngIf="request.rejected">Rejected</button>    
+                        </td>
+                        <td><button type="button" class="btn btn-outline-primary ms-2" style="border-radius: 20px;"
+                                (click)="respondForm(request,false)" [disabled]="request.status || request.rejected"><i class="bi bi-calendar2-check-fill"></i></button>
+                        </td>
+                        <td><button type="button" class="btn btn-outline-success ms-2" style="border-radius: 20px;"
+                                (click)="respondForm(request,true)" [disabled]="!request.status"><i class="bi bi-clipboard-plus"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="response-content" *ngIf="respond">
+                <div class="form-floating" *ngIf="report">
+                    <input type="text" class="form-control" id="docId" name="docID" [(ngModel)]="docRequest.doctorId"
+                        disabled readonly>
+                    <label for="docID">Doctor ID</label>
+                </div>
+                <div class="form-floating" *ngIf="report">
+                    <input type="text" class="form-control" id="docName" name="docName" [(ngModel)]="docRequest.doctorName"
+                        disabled readonly>
+                    <label for="docName">Doctor Name</label>
+                </div>
+                <div class="form-floating" *ngIf="report">
+                    <input type="text" class="form-control" id="patientId" name="patientId"
+                        [(ngModel)]="docRequest.patientId" disabled readonly>
+                    <label for="patientId">Patient ID</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="name" [(ngModel)]="docRequest.patientName" disabled
+                        readonly>
+                    <label for="name">Patient Name</label>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" name="problem" id="problem" style="height: 50px"
+                        [(ngModel)]="docRequest.problem" disabled readonly></textarea>
+                    <label for="problem">Patient Problem</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="appdate" [(ngModel)]="docRequest.date" disabled
+                        readonly>
+                    <label for="appdate">Requested Appointment Date</label>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" name="response" id="response" style="height: 75px"
+                        [(ngModel)]="docRequest.response" [disabled]="report || docRequest.status" required></textarea>
+                    <label for="response">Your Response</label>
+                </div>
+                <div class="form-floating" *ngIf="report">
+                    <textarea class="form-control" name="prescription" id="prescription" style="height: 75px"
+                        [(ngModel)]="docRequest.prescription" [disabled]="docRequest.visited" required></textarea>
+                    <label for="prescription">Prescription</label>
+                </div>
+                <div class="response-buttons" *ngIf="!report; else reportButton" [hidden]="docRequest.status">
+                    <button type="submit" style="float:left;width: 10rem;" class="btn btn-outline-success"
+                        (click)="updateRequest(true)">Accept</button>
+                    <button type="button" class="btn btn-outline-danger" style="float: right;width: 10rem;"
+                        (click)="updateRequest(false)">Reject</button>
+                </div>
+                <div class="alert alert-success text-center" *ngIf="docRequest.status && !docRequest.visited && !report"
+                    style="margin: 20px;">
+                    You already responded to this request
+                </div>
+                <ng-template #reportButton>
+                    <div class="col">
+                        <button type="submit" class="btn btn-success ms-3" (click)="generateReport()"
+                            [hidden]="docRequest.visited">Generate
+                            Report</button>
+                    </div>
+                    <div class="alert alert-success text-center" *ngIf="docRequest.visited" style="margin: 20px;">
+                        Report is already generated
+                    </div>
+                </ng-template>
+            </div>
+            <ng-template #noRequests>
+                <div class="alert alert-danger text-center" *ngIf="!requests.length">
+                    No Requests
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

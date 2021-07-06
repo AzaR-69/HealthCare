@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule,Route} from '@angular/router';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DoctorAppointmentPanelComponent } from './doctor-appointment-panel/doctor-appointment-panel.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { LoginComponent } from './login/login.component';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
@@ -21,7 +22,8 @@ const routes: Route[] = [
  {path:'doctors',component:DoctorsComponent},
  {path:'appointment',component:AppointmentComponent},
  {path:'prescription',component:PrescriptionComponent},
- {path:'manage',component:ManageAccountComponent}
+ {path:'manage',component:ManageAccountComponent},
+ {path:'doctorpanel',component:DoctorAppointmentPanelComponent}
 ];
 
 @NgModule({

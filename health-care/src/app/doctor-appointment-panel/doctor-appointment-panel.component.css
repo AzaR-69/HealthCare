@@ -1,0 +1,16 @@
+.container{
+    margin-top: 50px;
+    position:absolute;
+    left:15%;
+}
+
+.form-floating,.response-buttons{
+    margin: 20px;
+}
+.col button{
+    width: 95%;
+}
+label{
+    font-weight: bold;
+    color: #6174f0;
+}
