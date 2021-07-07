@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -17,8 +18,6 @@ import { HttpInterceptorService } from 'services/http-interceptor.service';
 import { TokenServiceService } from 'services/token-service.service';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
-import * as jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
 import { DoctorAppointmentPanelComponent } from './doctor-appointment-panel/doctor-appointment-panel.component';
 import { DoctorService } from 'services/doctor.service';
