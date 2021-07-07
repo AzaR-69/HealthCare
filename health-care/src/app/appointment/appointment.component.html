@@ -44,15 +44,15 @@
                 </tbody>
             </table> -->
     <div class="display-content" [hidden]="showReport" *ngIf="requests.length; else noRequest">
-        <p class="fs-2 text-center text-primary fw-bold  mt-2 mb-4" style="margin-left: 50%;"><u>Your Appointment Requests</u></p>
+        <p class="fs-2 text-center text-primary fw-bold mt-2 mb-4 heading" ><u>Your Appointment Requests</u></p>
         <div class="row" *ngFor="let req of requests">
-            <div class="col-lg-5 col-md-5 d-sm-none d-md-block">
-                <div class="card text-dark mt-3 mb-3 shadow bg-white rounded"
-                    style="width: 18rem;padding: 10px;margin-left: 35%;">
+            <div class="col-lg-5 col-md-5 d-none d-lg-block">
+                <div class="card text-dark mt-3 mb-3 shadow bg-white rounded left-card"
+                    style="padding: 10px;margin-left: 35%;">
                     <div class="card-body">
                         <h5 class="card-title text-primary"><b>Request ID:</b>&nbsp;{{req.requestId}}</h5>
-                        <p class="card-text"><b class="text-secondary">Requested Date:</b>&nbsp; {{req.date}}</p>
-                        <p class="card-text"><b class="text-secondary">Status:</b>&nbsp; <span *ngIf="req.status">
+                        <p class="card-text"><b class="text-dark">Requested Date:</b>&nbsp; {{req.date}}</p>
+                        <p class="card-text"><b class="text-dark">Status:</b>&nbsp; <span *ngIf="req.status">
                                 <button class="btn btn-outline-success btn-sm ms-2"><span
                                         class="material-icons-outlined me-2" style="float: left;">
                                         thumb_up_alt
@@ -75,8 +75,8 @@
                 </div>
             </div>
             <div class="col-sm-12 offset-sm-2 col-lg-7 col-md-7 offset-md-0">
-                <div class="card text-dark bg-white mb-3 mt-3 shadow rounded"
-                    style="width:50rem; margin-left: 25%;padding: 15px;">
+                <div class="card text-dark bg-white mb-3 mt-3 shadow rounded right-card"
+                    style="margin-left: 25%;padding: 15px;">
                     <div class="card-body">
                         <ul class="nav position-absolute top-0 end-0 mt-5 me-2">
                             <li><span *ngIf="req.visited"><button class="btn btn-success btn-sm" (click)="report(req)">View Report</button></span>
@@ -88,8 +88,8 @@
                             </span>Delete</button></li>
                         </ul>
                         <h5 class="card-title text-primary"><b>{{req.doctorId}}: </b>{{req.doctorName}}</h5>
-                        <p class="card-text"><b class="text-secondary">Your Problem:</b>&nbsp; {{req.problem}}</p>
-                        <p class="card-text"><b class="text-secondary">Doctor Response:</b>&nbsp; <span
+                        <p class="card-text"><b class="text-dark">Your Problem:</b>&nbsp; {{req.problem}}</p>
+                        <p class="card-text"><b class="text-dark">Doctor Response:</b>&nbsp; <span
                                 *ngIf="req.response; else noResponse">{{req.response}}</span>
                             <ng-template #noResponse>
                                 <span>Pending</span>
@@ -100,7 +100,7 @@
             </div>
         </div>
     </div>
-    <div class="card w-75 shadow bg-white rounded donor" [hidden]="!showReport" style="left: 25%;">
+    <div class="card shadow bg-white rounded donor report-card" [hidden]="!showReport">
         <h3 class="card-header text-primary fw-bold">Your Requests</h3>
         <div class="card-body">
             <div #patientReport id="patientReport">

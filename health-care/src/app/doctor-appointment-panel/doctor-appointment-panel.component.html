@@ -1,35 +1,37 @@
 <div class="d-flex justify-content-center container">
-    <div class="card my-5 w-75 shadow bg-white rounded donor">
+    <div class="card my-5 shadow bg-white rounded donor">
         <h3 class="card-header text-primary fw-bold">Your Appointments</h3>
         <div class="card-body">
-            <table class="table table-bordered table-striped" *ngIf="requests.length && !respond;else noRequests">
-                <thead class="table-primary">
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Problem</th>
-                        <th scope="col">Appointment date</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Respond</th>
-                        <th scope="col">Report</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let request of requests">
-                    <tr>
-                        <td>{{request.patientName}}</td>
-                        <td>{{request.problem}}</td>
-                        <td>{{request.date}}</td>
-                        <td ><button class="btn btn-outline-success btn-sm ms-2" *ngIf="request.status">Accepted</button>
-                            <button class="btn btn-outline-secondary btn-sm ms-2" *ngIf="!request.status && !request.rejected">Pending</button>   
-                            <button class="btn btn-outline-danger btn-sm ms-2" *ngIf="request.rejected">Rejected</button>    
-                        </td>
-                        <td><button type="button" class="btn btn-outline-primary ms-2" style="border-radius: 20px;"
-                                (click)="respondForm(request,false)" [disabled]="request.status || request.rejected"><i class="bi bi-calendar2-check-fill"></i></button>
-                        </td>
-                        <td><button type="button" class="btn btn-outline-success ms-2" style="border-radius: 20px;"
-                                (click)="respondForm(request,true)" [disabled]="!request.status"><i class="bi bi-clipboard-plus"></i></button></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" *ngIf="requests.length && !respond;else noRequests">
+                    <thead class="table-primary">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Problem</th>
+                            <th scope="col">Appointment date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Respond</th>
+                            <th scope="col">Report</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let request of requests">
+                        <tr>
+                            <td>{{request.patientName}}</td>
+                            <td>{{request.problem}}</td>
+                            <td>{{request.date}}</td>
+                            <td ><button class="btn btn-outline-success btn-sm ms-2" *ngIf="request.status">Accepted</button>
+                                <button class="btn btn-outline-secondary btn-sm ms-2" *ngIf="!request.status && !request.rejected">Pending</button>   
+                                <button class="btn btn-outline-danger btn-sm ms-2" *ngIf="request.rejected">Rejected</button>    
+                            </td>
+                            <td><button type="button" class="btn btn-outline-primary ms-2" style="border-radius: 20px;"
+                                    (click)="respondForm(request,false)" [disabled]="request.status || request.rejected"><i class="bi bi-calendar2-check-fill"></i></button>
+                            </td>
+                            <td><button type="button" class="btn btn-outline-success ms-2" style="border-radius: 20px;"
+                                    (click)="respondForm(request,true)" [disabled]="!request.status"><i class="bi bi-clipboard-plus"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="response-content" *ngIf="respond">
                 <div class="form-floating" *ngIf="report">
                     <input type="text" class="form-control" id="docId" name="docID" [(ngModel)]="docRequest.doctorId"

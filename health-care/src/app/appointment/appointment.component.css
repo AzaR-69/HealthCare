@@ -7,15 +7,50 @@
     position:absolute;
 }    
 
+.container .report-card{
+    left: 25%;
+    width: 40rem;
+}
+.container .heading{
+    margin-left: 50%;
+}
 .image .pending, .response .verified,.response-rejected .oops{
     font-size: 100px;
 }
 .form-group,.response-buttons,.alert{
     margin: 15px;
 }
-
-
+.left-card{
+    width: 18rem;
+}
+.right-card{
+    width: 50rem;
+}
 label{
     font-weight: bold;
     color: #6174f0;
+}
+
+@media screen and (max-width:670px) {
+    .container{
+        position: none;
+    }
+    .right-card{
+        width: 30rem;
+        margin-left: 0%;
+       right: 25%;
+    }
+
+    .container .report-card{
+        left:0%;
+        width: 30rem;
+    }
+    .no-request{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50%;
+    }
+    .container .heading{
+        margin-left: 0%;
+    }
 }

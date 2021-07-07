@@ -3,7 +3,9 @@
     position:absolute;
     left:15%;
 }
-
+.container .card{
+    width: 50rem;
+}
 .form-floating,.response-buttons{
     margin: 20px;
 }
@@ -13,4 +15,16 @@
 label{
     font-weight: bold;
     color: #6174f0;
+}
+
+@media screen and (max-width:670px) {
+    .container{
+        position: none;
+        left:0%;
+    }
+    .container .card{
+        width: 30rem;
+        
+    }
+    
 }

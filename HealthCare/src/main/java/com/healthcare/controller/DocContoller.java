@@ -65,6 +65,7 @@ public class DocContoller {
 	
 	@DeleteMapping("/deleteDoctor/{id}")
 	public void delete(@PathVariable String id) {
+		userRepository.deleteById(id);
 		doctorRepository.deleteById(id);
 	}
 	

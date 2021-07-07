@@ -33,6 +33,14 @@ export class ManageAccountComponent implements OnInit {
     }
   }
 
+  form(status1:boolean,status2:boolean){
+    this.addDoc=status1
+    this.editable=status2
+    if(!status2){
+      this.doctor=new Doctor
+    }
+  }
+
   getDoctors(){
     this.docService.getDoctors().subscribe(
       data=>this.doctors=data,error=>console.log(error)
@@ -40,19 +48,18 @@ export class ManageAccountComponent implements OnInit {
   }
   addDoctor(){
     this.docService.addDoctor(this.doctor).subscribe(
-      data=>{console.log("Success"),this.addDoc=!this.addDoc,this.ngOnInit()},error=>console.log(error)
+      data=>{console.log("Success"),this.ngOnInit(),this.form(false,false)},error=>console.log(error)
     )
   }
   editDoctor(id:string){
-    this.editable=!this.editable
     this.docService.getDoctorById(id).subscribe(
-      data=>this.doctor=data,error=>("Error")
+      data=>{this.doctor=data, this.form(true,true)},error=>("Error")
     )
   }
 
   updateDoctor(){
     this.docService.updateDoctor(this.doctor).subscribe(
-      data=>{this.editable=!this.editable,this.ngOnInit()},error=>console.log(error)
+      data=>{this.ngOnInit(),this.form(false,false)},error=>console.log(error)
     )
   }
 

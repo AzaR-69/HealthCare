@@ -3,6 +3,9 @@
     position:absolute;
     left:15%;
 }
+.container .card{
+    width: 50%;
+}
 .form-control{
     margin-bottom: 15px;
 }
@@ -16,5 +19,8 @@ label{
     .container{
         position: none;
         left:0%;
+    }
+    .container .card{
+        width: 25rem;
     }
 }
