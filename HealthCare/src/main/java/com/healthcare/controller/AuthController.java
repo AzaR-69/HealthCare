@@ -7,6 +7,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.healthcare.model.User;
 import com.healthcare.repository.UserRepository;
@@ -56,6 +58,7 @@ public class AuthController {
 	}
 
 	@GetMapping(value = "/getDetails/{token}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('DOCTOR')")
 	public String getPayload(@PathVariable String token) throws UnsupportedEncodingException {
 		String payload = token.split("\\.")[1];
 		return new String(Base64.decodeBase64(payload), "UTF-8");
@@ -76,16 +79,19 @@ public class AuthController {
 	}
 
 	@GetMapping(value = "/getUser/{username}")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('DOCTOR')")
 	public User findUser(@PathVariable String username) throws Exception {
 		return userRepository.findByUsername(username).orElseThrow(()->new Exception("User not found"));
 	}
 	
 	@PatchMapping(value="/update")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('DOCTOR')")
 	public void updateProfile(@RequestBody User user) {
 		userRepository.save(user);
 	}
 	
 	@PostMapping("/registerDoctor")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void addDoctors(@RequestBody User user) throws Exception{
 		if (userRepository.existsByUsername(user.getUsername())) {
 			throw new Exception("Error: username is already taken");
@@ -112,7 +118,9 @@ public class AuthController {
 		userRepository.save(user);
 	}
 	
+	
 	@PatchMapping("/updateAvailability/{username}/{availability}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void updateAvailability(@PathVariable String username,@PathVariable boolean availability) throws Exception {
 		User user=userRepository.findByUsername(username).orElseThrow(()->new Exception("Not found"));
 		user.setAvailability(availability);

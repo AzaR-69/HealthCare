@@ -3,6 +3,7 @@ package com.healthcare.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,11 +34,13 @@ public class DocContoller {
 	UserRepository userRepository;
 	
 	@GetMapping("")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public List<Doctor> getDoctors(){
 		return doctorRepository.findAll();
 	}
 	
 	@PostMapping("/add")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void addDoctors(@RequestBody Doctor doctor) {
 		User user=new User();
 		user.setName(doctor.getName());
@@ -54,16 +57,19 @@ public class DocContoller {
 	}
 	
 	@GetMapping("/getByDID/{did}")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public Doctor getDoctor(@PathVariable String did) throws Exception {
 		return doctorRepository.findById(did).orElseThrow(()->new Exception("Doctor with ID "+did+" Not found"));
 	}
 	
 	@PatchMapping("/updateDoctor")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void update(@RequestBody Doctor doctor) {
 		doctorRepository.save(doctor);
 	}
 	
 	@DeleteMapping("/deleteDoctor/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void delete(@PathVariable String id) {
 		userRepository.deleteById(id);
 		doctorRepository.deleteById(id);

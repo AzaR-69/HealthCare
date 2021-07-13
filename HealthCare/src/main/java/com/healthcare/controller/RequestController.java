@@ -3,6 +3,7 @@ package com.healthcare.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,21 +31,25 @@ public class RequestController {
 	UserRepository userRepository;
 
 	@PostMapping("/add")
+	@PreAuthorize("hasRole('USER')")
 	public void addRequest(@RequestBody RequestModel request) {
 		requestRepository.save(request);
 	}
 
 	@GetMapping("/getRequest/{id}")
+	@PreAuthorize("hasRole('USER') or hasRole('DOCTOR')")
 	public RequestModel getRequest(@PathVariable String id) throws Exception {
 		return requestRepository.findByIdCustom(id).orElseThrow(() -> new Exception("Not found"));
 	}
 
 	@GetMapping("/getRequests/{id}")
+	@PreAuthorize("hasRole('USER') or hasRole('DOCTOR')")
 	public List<RequestModel> getAll(@PathVariable String id) {
 		return requestRepository.getRequests(id);
 	}
 
 	@PatchMapping("/updateRequest/{status}")
+	@PreAuthorize("hasRole('DOCTOR')")
 	public void update(@PathVariable boolean status, @RequestBody RequestModel request) {
 		if (status) {
 			User user = userRepository.findById(request.getPatientId()).orElse(new User());
@@ -55,6 +60,7 @@ public class RequestController {
 	}
 
 	@DeleteMapping("/deleteRequest/{id}/{date}")
+	@PreAuthorize("hasRole('USER') or hasRole('DOCTOR')")
 	public void delete(@PathVariable String id,@PathVariable String date) {
 		requestRepository.deleteByPatientIdAndDate(id, date);
 	}
