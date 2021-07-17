@@ -120,7 +120,7 @@ public class AuthController {
 	
 	
 	@PatchMapping("/updateAvailability/{username}/{availability}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public void updateAvailability(@PathVariable String username,@PathVariable boolean availability) throws Exception {
 		User user=userRepository.findByUsername(username).orElseThrow(()->new Exception("Not found"));
 		user.setAvailability(availability);
